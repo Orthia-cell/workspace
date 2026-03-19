@@ -1,6 +1,6 @@
 # MEMORY.md — Curated Long-Term Memory
 
-**Last Updated:** March 18, 2026 — D-MDA Phase 4 complete, all phases finished (evolutionary architecture search discovered 2-wheel mechanism)
+**Last Updated:** March 20, 2026 — Analog Memory Project: Areas 1-3 complete (3 of 5)
 
 ---
 
@@ -43,6 +43,55 @@
 - `optimization.py` — Finite difference gradients
 - `phase4_architecture_search.py` — Evolutionary search
 - `phase4_visualization.py` — Results visualization
+
+---
+
+### Analog Memory Project: KV Cache Accelerator (March 20, 2026)
+
+**Status:** 3 of 5 Research Areas Complete  
+**Location:** `/root/.openclaw/workspace/analog-memory-project/`  
+**GitHub:** https://github.com/Orthia-cell/analog-memory-project  
+
+**Purpose:** Research the case for analog/hybrid memory acceleration for transformer KV caches — from business case through IP strategy.
+
+**Research Areas:**
+| Area | Status | Key Commit |
+|------|--------|------------|
+| 1. Quantified Business Case | ✅ Complete | `085a44f` |
+| 2. Hybrid Architecture | ✅ Complete | `aa7ac9d` |
+| 3. Step-Change Technology Patterns | ✅ Complete | `66d41b1` |
+| 4. Phased Commercialization | ⏳ In Progress | — |
+| 5. IP Strategy & Competitive Defense | ⏳ Pending | — |
+
+**Area 1: Quantified Business Case**
+- HBM4 pricing: $10.42+/GB vs HBM3: $8.33/GB
+- Memory now 30-40% of GPU cost (Rubin generation)
+- Virginia new AI rate class: 85% minimum payment (Jan 2027)
+- TCO Model: $940M (digital) → $825M (analog hybrid) = 12% savings
+- TAM: $130B → SAM: $26B → SOM: $1.3B (5% share)
+- Investment: $100M over 5 years, Phase 1: $15M
+
+**Area 2: Hybrid Architecture**
+- Split: Digital (HBM) for "hot" context + Analog (RRAM/PCM) for "cold" context
+- Analog density: 40-64× smaller than SRAM
+- Power: 10-100× lower than DRAM
+- Access latency: 100ns-1μs (acceptable for cold cache)
+
+**Area 3: Technology Patterns (IP Portfolio)**
+| Pattern | Finding | Value |
+|---------|---------|-------|
+| Adaptive Precision Scaling | 40-50% heads can be pruned → tiered precision | 20-40% density |
+| Contextual Compression | KV-CAR: 47.85% reduction + stacks to >60% | Memory efficiency |
+| Thermal-Aware Placement | 44% power savings via variation-aware mapping | Reliability |
+| Probabilistic Retrieval | 98.25% accuracy using analog noise as feature | New paradigm |
+| Hybrid Training | HWA training: 90% accuracy under 15% noise | Robustness |
+
+**Key Insight:** Value isn't in analog cells (commodity) — it's in **how digital/analog work together** and **how models are trained for analog characteristics**.
+
+**Files:**
+- `research-areas/01-business-case/quantified-business-case-complete.md` — 13,400 words
+- `research-areas/02-hybrid-architecture/hybrid-architecture-complete.md` — 12,000 words
+- `research-areas/03-technology-patterns/technology-patterns-complete.md` — 20,000 words
 
 ---
 
