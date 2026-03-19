@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI-Emulated Analog Computing</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            color: #333;
+        }
+        h1 {
+            font-size: 28px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            color: #444;
+        }
+        h3 {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+        }
+        .date {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .infographic-desc {
+            background: #f5f5f5;
+            padding: 15px;
+            border-left: 4px solid #666;
+            margin: 20px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .highlight {
+            background: #fffde7;
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI-Emulated Analog Computing</h1>
+    <p class="date">Discussion Notes — March 16, 2026</p>
+
+    <div class="section">
+        <h2>1. Traditional vs. AI-Emulated Analog Computers</h2>
+        
+        <div class="infographic-desc">
+            <p><strong>Traditional Analog Computer:</strong></p>
+            <ul>
+                <li>Physical Components (op-amps, resistors, capacitors)</li>
+                <li>Prone to Noise & Drift (thermal effects, component aging)</li>
+                <li>Limited Precision (determined by physical tolerances)</li>
+                <li>Real-World Circuits operating in continuous time</li>
+            </ul>
+            
+            <p><strong>AI-Emulated Analog Computer:</strong></p>
+            <ul>
+                <li>Neural Simulation (learned transfer functions)</li>
+                <li>Digital Emulation running on standard hardware</li>
+                <li>High Precision (arbitrary precision arithmetic)</li>
+                <li>Flexible & Stable (no component drift)</li>
+                <li>Virtual Simulation on screens/GPUs</li>
+            </ul>
+        </div>
+
+        <p><strong>Unified Benefits:</strong></p>
+        <ul>
+            <li>Accurate Modeling — neural approximation of analog behavior</li>
+            <li>Noise-Free Computation — digital arithmetic eliminates analog noise</li>
+            <li>Hybrid Simulation & Control — combine real hardware with learned emulators</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>2. Can AI Emulate a CPU/Analog Computer?</h2>
+        
+        <p>Yes — and the advantages extend beyond simply avoiding analog hardware headaches.</p>
+
+        <h3>Core Mechanism</h3>
+        <p>A neural network learns the input-output relationship of analog circuits (op-amps, integrators, multipliers). Weight matrices replace physical components, eliminating drift, noise, and tolerance issues.</p>
+
+        <h3>Key Advantages</h3>
+        
+        <p><strong>1. Speed vs. SPICE</strong></p>
+        <p>Traditional circuit simulation solves differential equations numerically — accurate but slow. A trained neural emulator runs orders of magnitude faster, potentially achieving real-time simulation for complex analog feedback loops.</p>
+
+        <p><strong>2. Differentiability</strong></p>
+        <p>This is the critical difference: physical analog circuits aren't differentiable (you can't backpropagate through a resistor), but neural emulators are. This enables:</p>
+        <ul>
+            <li>Optimization through analog computation</li>
+            <li>Sensitivity analysis</li>
+            <li>End-to-end training with "analog" blocks in the loop</li>
+        </ul>
+
+        <p><strong>3. Hardware Portability</strong></p>
+        <p>The "analog computer" runs on any GPU/TPU/NPU — deployable anywhere without custom analog fabrication.</p>
+
+        <p><strong>4. Snapshot/Restore</strong></p>
+        <p>Save exact computational state, fork computations, even run backward in time (reverse integration). Impossible with physical capacitor charges.</p>
+
+        <h3>The Tradeoff</h3>
+        <p>Neural emulators trade exact physical fidelity for approximation. Performance is only guaranteed within the training distribution — outside that, the model may hallucinate circuit behavior.</p>
+    </div>
+
+    <div class="section">
+        <h2>3. Analog Computing and World Models</h2>
+
+        <p><strong>Intuition:</strong> For AI to emulate human reality and create world models, functioning as an analog computing machine (closer to real-world physics) may be beneficial.</p>
+
+        <h3>Why This Intuition Holds</h3>
+        
+        <p>The physical world operates in <span class="highlight">continuous time and continuous state</span>:</p>
+        <ul>
+            <li>Projectile motion</li>
+            <li>Thermal conductivity</li>
+            <li>Neural spiking</li>
+        </ul>
+        <p>These are differential equations, not discrete steps. Digital simulation approximates by discretizing time (Δt) and quantizing state — each approximation introduces error.</p>
+
+        <p>Neural networks are continuous function approximators. A dense layer mapping ℝⁿ→ℝᵐ is a smooth transformation without clock cycles or quantization (in principle). Training a world model learns the <em>flow</em> of dynamics directly — closer to natural physics than finite-difference simulation.</p>
+
+        <h3>Neural ODEs Research</h3>
+        <p>The "Neural ODE" framework (Chen et al., 2018) defines continuous-time dynamics:</p>
+        <ul>
+            <li>Instead of: x<sub>t+1</sub> = f(x<sub>t</sub>)</li>
+            <li>Learn: dx/dt = f(x, t)</li>
+        </ul>
+        <p>The forward pass uses numerical integration, but the learned function itself is continuous. This is neural networks thinking like analog computers.</p>
+
+        <h3>Advantages for World Models</h3>
+        <ul>
+            <li><strong>Time-warping</strong> — Simulate physics at variable resolution without stability constraints</li>
+            <li><strong>Energy conservation</strong> — Physical quantities conserved; learned dynamics can inherit this structure</li>
+            <li><strong>Causality</strong> — No timestep artifacts, no "simulation explosions" from poor Δt choices</li>
+        </ul>
+
+        <h3>The Structural Gap</h3>
+        <p>There remains a fundamental mismatch between discrete von Neumann architectures and continuous physical reality. Neural networks narrow this gap by adopting continuous, parallel, flow-based computational models — a better substrate for world modeling than discrete symbolic reasoning.</p>
+    </div>
+
+    <div class="section">
+        <h2>4. Summary</h2>
+        
+        <p>AI-emulated analog computing offers a path to:</p>
+        <ul>
+            <li>Fast, differentiable simulation of continuous systems</li>
+            <li>World models that capture physics without discretization artifacts</li>
+            <li>Hybrid systems combining physical analog (where needed) with neural emulation (where flexible)</li>
+        </ul>
+
+        <p>While we still run on digital hardware, the <em>computational model</em> — continuous, parallel, flow-based — may indeed be a better foundation for modeling reality than discrete symbolic approaches.</p>
+    </div>
+
+</body>
+</html>

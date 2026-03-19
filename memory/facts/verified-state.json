@@ -1,0 +1,41 @@
+{
+  "schema": "orthia.verified-state.v1",
+  "lastVerified": "2026-03-11T12:05:00+08:00",
+  "systemFacts": {
+    "firstConversation": "2026-02-26",
+    "workspacePath": "/root/.openclaw/workspace",
+    "totalFilesDeleted": 0,
+    "deletionCronRemoved": "2026-03-11T10:40:00+08:00"
+  },
+  "memoryFiles": {
+    "2026-03-03.md": {"exists": true, "size": 608, "lastModified": "2026-03-03T12:42:00+08:00"},
+    "2026-03-04.md": {"exists": true, "size": 1017, "lastModified": "2026-03-04T13:54:00+08:00"},
+    "2026-03-05-conversation-dreams.md": {"exists": true, "size": 4579, "lastModified": "2026-03-05T15:18:00+08:00"},
+    "2026-03-07.md": {"exists": true, "size": 4466, "lastModified": "2026-03-07T10:59:00+08:00"},
+    "2026-03-08.md": {"exists": true, "size": 4318, "lastModified": "2026-03-08T04:55:00+08:00"},
+    "2026-03-09.md": {"exists": true, "size": 1341, "lastModified": "2026-03-10T00:19:00+08:00"}
+  },
+  "cronJobs": [
+    {"id": "4f07161f-7d29-4c00-a897-828ad723229e", "name": "orthia-auto-commit", "enabled": true, "schedule": "0 */4 * * *"},
+    {"id": "72080ed7-4ed7-4b16-8780-460741b4bc39", "name": "orthia-daily-question", "enabled": true, "schedule": "0 6 * * * America/Los_Angeles"},
+    {"id": "f5199659-0279-45c2-b0b1-c89ed632d4fd", "name": "Monthly MEMORY.md size review", "enabled": true, "schedule": "0 9 1 * * Asia/Shanghai"}
+  ],
+  "deletedCronJobs": [
+    {"id": "8a5a3d87-5b2c-4e6a-8212-833a318dd2f1", "name": "Orthia Daily Memory Consolidation", "removedAt": "2026-03-11T10:40:00+08:00"},
+    {"id": "ff1077c6-10fa-49af-b305-5dc0f59cabca", "name": "Orthia Daily Consolidated Memory Review", "removedAt": "2026-03-11T10:41:00+08:00"}
+  ],
+  "userPreferences": {
+    "name": "Shawn",
+    "timezone": "Asia/Shanghai",
+    "messageAuditLogging": true,
+    "languagePreference": "English",
+    "memoryRetentionPolicy": "keep-all-permanent"
+  },
+  "validationCron": {
+    "id": "f13b2d7d-603d-4515-8c96-08ce44ec2883",
+    "name": "Orthia Memory Validation Check-in",
+    "schedule": "0 18 * * 0 Asia/Shanghai",
+    "nextRun": "2026-03-15T18:00:00+08:00"
+  },
+  "verificationHash": "sha256:pending"
+}

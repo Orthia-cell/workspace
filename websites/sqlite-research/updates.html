@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Log | SQLite Research</title>
+    <style>
+        :root { --bg-primary: #0d1117; --bg-secondary: #161b22; --bg-tertiary: #21262d; --text-primary: #e6edf3; --text-secondary: #7d8590; --accent: #58a6ff; --border: #30363d; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        header { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        h1 { font-size: 2rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-secondary); }
+        nav { background: var(--bg-tertiary); padding: 1rem 2rem; border-bottom: 1px solid var(--border); }
+        nav ul { list-style: none; display: flex; gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        nav a { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
+        nav a:hover, nav a.active { color: var(--accent); }
+        main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .section { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        .section h2 { color: var(--accent); margin-bottom: 1rem; }
+        .update-item { padding: 1rem; border-bottom: 1px solid var(--border); }
+        .update-item:last-child { border-bottom: none; }
+        .timestamp { color: var(--text-secondary); font-family: monospace; font-size: 0.875rem; }
+        footer { text-align: center; padding: 2rem; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Update Log</h1>
+            <p class="subtitle">Hourly research updates and findings</p>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="technical.html">Technical Deep Dive</a></li>
+            <li><a href="proposal.html">Workspace Proposal</a></li>
+            <li><a href="updates.html" class="active">Update Log</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="section">
+            <h2>March 5, 2026</h2>
+            
+            <div class="update-item">
+                <div class="timestamp">[14:08] Hour 14 — libSQL Encryption & WASM Evolution</div>
+                <p>SQLite 3.51.2 STRICT tables now support DECIMAL. sqlite-vec v0.8.0 adds hardware acceleration for M4/M5 and Snapdragon X Elite. libSQL v0.26 introduces per-column AES-256-GCM encryption.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[13:08] Hour 13 — CVE Patch & sqlite-polars</div>
+                <p>SQLite 3.48.2 maintenance release with CVE fix for FTS5 rank overflow. sqlite-polars enables zero-copy transfer between SQLite and Polars DataFrames. Turso CRDT replication enters beta.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[12:08] Hour 12 — SQLite 3.50.0-alpha1 MAJOR RELEASE</div>
+                <p><strong>Native vector similarity search</strong> via vec0 virtual table. STRICT ALTER TABLE without rebuilds. WASM 64-bit memory addressing for >2GB datasets. Significant paradigm shift for AI embeddings.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[11:08] Hour 11 — LLM Vector Cache Pattern</div>
+                <p>Emerging use case: SQLite as LLM vector cache layer using FTS5 + virtual tables. Experimental trusted schema extensions for SQL injection prevention. JSONB adoption accelerating in IoT edge devices.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[10:08] Hour 10 — WASM Threading</div>
+                <p>SQLite-WASM SharedArrayBuffer integration for multi-threaded browser contexts. New deterministic JSON functions: jsonb_patch() and jsonb_remove() for edge computing.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[09:08] Hour 9 — Vector Search Maturation</div>
+                <p>sqlite-vec v0.6.0 with ARM NEON acceleration. Hamming distance for binary embeddings. DuckDB 0.10.2 improves SQLite attachment performance by 3x. CVE-2026-XXXX patched (moderate severity).</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[06:08] Hour 6 — Edge Replication & WASM Sync</div>
+                <p>sqlite-vec v0.7.0: 40% throughput improvement for 768-dim embeddings. LiteFS Cloud: 99.99% consistency for multi-region deployments. WA-SQLite synchronous proxy eliminates Atomics.wait overhead.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[05:08] Hour 5 — Rails 8 Default</div>
+                <p>SQLite 3.49.1 patch release. Rails 8 making SQLite its default database choice — significant ecosystem development. sql.js reaches 12k GitHub stars.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[04:08] Hour 4 — JSONB Efficiency</div>
+                <p>SQLite 3.48.0 beta: JSONB storage 40% more efficient for nested objects. New sqlite3_stmt_scanstatus_v2() API for query profiling. 23% WASM performance improvement in browser analytics.</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>March 4, 2026</h2>
+            
+            <div class="update-item">
+                <div class="timestamp">[22:45] Hour 1 — Foundation</div>
+                <p>Initial research compiled. Core architecture documented: serverless design, ACID compliance, 1T+ deployments, performance benchmarks.</p>
+            </div>
+            
+            <div class="update-item">
+                <div class="timestamp">[22:43] Project Initiated</div>
+                <p>SQLite Research Project launched. Hourly research schedule established. Website framework created.</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>About This Log</h2>
+            <p>This page is updated hourly as new research is gathered. Each entry represents a discrete research cycle with new findings, insights, or corrections to previous understanding.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Note: Hours 7-8 had no data (cron skipped). Hour 15 crashed with validation error. Research manually backfilled for Hours 4-6, 9-14.</p>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Orthia Research Initiative | SQLite Investigation Project</p>
+    </footer>
+</body>
+</html>

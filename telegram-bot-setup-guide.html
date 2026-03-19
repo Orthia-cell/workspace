@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Bot Setup Guide - OpenClaw</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: #a0a0a0;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #16213e;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #764ba2;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        li::marker {
+            color: #667eea;
+        }
+
+        .code-block {
+            background: #1e1e2e;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #2d2d44;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27c93f; }
+
+        .code-label {
+            color: #888;
+            font-size: 0.85rem;
+            margin-left: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+        }
+
+        .code-block pre code {
+            color: #e4e4e7;
+        }
+
+        .code-block .comment { color: #6a9955; }
+        .code-block .string { color: #ce9178; }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .command { color: #9cdcfe; }
+        .code-block .arg { color: #dcdcaa; }
+
+        .inline-code {
+            background: #f0f0f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #764ba2;
+            font-weight: 500;
+        }
+
+        .note {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .note-title {
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-title {
+            font-weight: 700;
+            color: #721c24;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tip {
+            background: linear-gradient(135deg, #e6f7ff 0%, #cce8ff 100%);
+            border-left: 4px solid #1890ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .tip-title {
+            font-weight: 700;
+            color: #0050b3;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .config-table th {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .config-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .config-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-info {
+            background: #cce8ff;
+            color: #0050b3;
+        }
+
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 20px;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📱 Telegram Bot Setup Guide</h1>
+            <p>Complete configuration reference for OpenClaw</p>
+        </header>
+
+        <div class="content">
+            <!-- Section 1: Initial Setup -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <h2>Initial Bot Setup</h2>
+                </div>
+
+                <h3>Create a Bot with BotFather</h3>
+                <ol class="step-list">
+                    <li>Open Telegram and search for <span class="inline-code">@BotFather</span></li>
+                    <li>Start a chat and send <span class="inline-code">/newbot</span></li>
+                    <li>Follow the prompts to name your bot and set a username (must end in "bot")</li>
+                    <li><strong>Save the bot token</strong> BotFather gives you — you'll need it</li>
+                </ol>
+
+                <h3>Configure OpenClaw</h3>
+                <p>Run these commands (replace <span class="inline-code">YOUR_BOT_TOKEN</span> with the actual token):</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># Load nvm environment</span>
+<span class="command">source</span> <span class="arg">/root/.nvm/nvm.sh</span>
+
+<span class="comment"># Set your bot token</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.botToken</span> <span class="string">"YOUR_BOT_TOKEN"</span>
+
+<span class="comment"># Set DM policy to pairing (secure default)</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"pairing"</span>
+
+<span class="comment"># Require mention in groups</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."*".requireMention</span> <span class="arg">true</span>
+
+<span class="comment"># Enable the channel</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.enabled</span> <span class="arg">true</span></code></pre>
+                </div>
+
+                <div class="note">
+                    <div class="note-title">💡 What These Settings Do</div>
+                    <ul>
+                        <li><span class="inline-code">dmPolicy: "pairing"</span> — Only paired users can DM the bot (for security)</li>
+                        <li><span class="inline-code">requireMention: true</span> — In groups, the bot only responds when mentioned</li>
+                    </ul>
+                </div>
+
+                <h3>Restart the Gateway</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="command">openclaw</span> <span class="arg">gateway restart</span></code></pre>
+                </div>
+            </div>
+
+            <!-- Section 2: Group Chat Settings -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <h2>Group Chat Settings</h2>
+                </div>
+
+                <h3>Basic Group Configuration</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># Allow bot in all groups, require mention to respond</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."*".requireMention</span> <span class="arg">true</span>
+
+<span class="comment"># Allow bot in a specific group only (replace with your group ID)</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."-1001234567890".requireMention</span> <span class="arg">true</span>
+
+<span class="comment"># Allow bot to respond to ANY message in a specific group (no mention needed)</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."-1001234567890".requireMention</span> <span class="arg">false</span>
+
+<span class="comment"># Set group policy: open, allowlist, or disabled</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."-1001234567890".groupPolicy</span> <span class="string">"open"</span></code></pre>
+                </div>
+
+                <h3>Finding Your Group ID</h3>
+                <ol>
+                    <li>Add the bot to the group</li>
+                    <li>Send a message in the group</li>
+                    <li>Run: <span class="inline-code">openclaw logs --follow</span></li>
+                    <li>Look for <span class="inline-code">chat.id</span> in the log output</li>
+                </ol>
+
+                <div class="tip">
+                    <div class="tip-title">💡 Quick Tip</div>
+                    Forward any group message to <span class="inline-code">@userinfobot</span> — it'll show the group ID instantly.
+                </div>
+
+                <h3>Privacy Mode (Important!)</h3>
+                <p>Telegram bots default to <strong>Privacy Mode</strong> — they only see messages that mention them.</p>
+
+                <div class="warning">
+                    <div class="warning-title">⚠️ To See All Group Messages</div>
+                    <ol>
+                        <li>Message <span class="inline-code">@BotFather</span></li>
+                        <li>Send <span class="inline-code">/setprivacy</span></li>
+                        <li>Select your bot</li>
+                        <li>Choose <strong>Disable</strong></li>
+                        <li><strong>Remove and re-add the bot to the group</strong> (required!)</li>
+                    </ol>
+                    <p style="margin-top: 10px;">Or just make the bot a group admin — that bypasses privacy mode too.</p>
+                </div>
+            </div>
+
+            <!-- Section 3: Custom Commands -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <h2>Custom Commands</h2>
+                </div>
+
+                <p>Custom commands appear in Telegram's command menu (the <span class="inline-code">/</span> button). They don't auto-implement behavior — you handle them in your agent logic.</p>
+
+                <h3>Adding Custom Commands</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.customCommands</span> <span class="string">'[{"command":"backup","description":"Git backup"},{"command":"generate","description":"Create an image"},{"command":"status","description":"Check system status"}]'</span></code></pre>
+                </div>
+
+                <h3>Command Rules</h3>
+                <ul>
+                    <li>Names: lowercase, <span class="inline-code">a-z</span>, <span class="inline-code">0-9</span>, <span class="inline-code">_</span>, 1-32 characters</li>
+                    <li>Cannot override native commands like <span class="inline-code">/new</span>, <span class="inline-code">/reset</span>, <span class="inline-code">/status</span></li>
+                    <li>Duplicates are skipped</li>
+                </ul>
+
+                <h3>Handling Commands in Your Agent</h3>
+                <p>When someone sends <span class="inline-code">/backup</span>, your agent receives it as regular text. You parse and handle it:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">text</span>
+                    </div>
+                    <pre><code>User: /backup
+Agent: Starting backup... [runs backup skill]</code></pre>
+                </div>
+
+                <h3>Native Commands (Built-in)</h3>
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="inline-code">/new</span> or <span class="inline-code">/reset</span></td>
+                            <td>Start fresh session</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">/status</span></td>
+                            <td>Show session status</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">/verbose on/off</span></td>
+                            <td>Toggle verbose mode</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">/think low/medium/high</span></td>
+                            <td>Set thinking level</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">/activation mention/always</span></td>
+                            <td>When to respond in groups</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">/compact</span></td>
+                            <td>Compress session history</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Disable native commands:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.commands.native</span> <span class="string">"disabled"</span></code></pre>
+                </div>
+            </div>
+
+            <!-- Section 4: Pairing Flow -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <h2>Pairing Flow</h2>
+                </div>
+
+                <p>Pairing = <strong>explicit approval</strong> before someone can DM your bot. This is the default security model.</p>
+
+                <h3>How It Works</h3>
+                <ol>
+                    <li><strong>Stranger DMs your bot</strong> → Bot replies with a pairing code (8 characters)</li>
+                    <li><strong>Message is NOT processed</strong> until approved</li>
+                    <li><strong>You approve the code</strong> → They can now chat freely</li>
+                </ol>
+
+                <h3>Managing Pairing</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># List pending pairing requests</span>
+<span class="command">openclaw</span> <span class="arg">pairing list</span> <span class="string">telegram</span>
+
+<span class="comment"># Approve a pairing code</span>
+<span class="command">openclaw</span> <span class="arg">pairing approve</span> <span class="string">telegram</span> <span class="arg">ABC12345</span>
+
+<span class="comment"># Reject/clear a pending request</span>
+<span class="command">openclaw</span> <span class="arg">pairing reject</span> <span class="string">telegram</span> <span class="arg">ABC12345</span></code></pre>
+                </div>
+
+                <h3>Pairing Policies</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># Require pairing for DMs (default, most secure)</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"pairing"</span>
+
+<span class="comment"># Use allowlist instead (pre-approved user IDs)</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"allowlist"</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.allowFrom</span> <span class="string">'["123456789","987654321"]'</span>
+
+<span class="comment"># Open to everyone (not recommended)</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"open"</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.allowFrom</span> <span class="string">'["*"]'</span>
+
+<span class="comment"># Disable DMs entirely</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"disabled"</span></code></pre>
+                </div>
+
+                <h3>Finding Your Telegram User ID</h3>
+
+                <p><strong>Method 1 (safest):</strong></p>
+                <ol>
+                    <li>DM your bot</li>
+                    <li>Run: <span class="inline-code">openclaw logs --follow</span></li>
+                    <li>Look for <span class="inline-code">from.id</span> in the logs</li>
+                </ol>
+
+                <p><strong>Method 2 (via API):</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="command">curl</span> <span class="string">"https://api.telegram.org/bot&lt;YOUR_BOT_TOKEN&gt;/getUpdates"</span></code></pre>
+                </div>
+
+                <p><strong>Method 3 (third-party bot):</strong></p>
+                <ul>
+                    <li>Message <span class="inline-code">@userinfobot</span> or <span class="inline-code">@getidsbot</span></li>
+                </ul>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">5</div>
+                    <h2>Quick Reference: Common Setups</h2>
+                </div>
+
+                <h3>🔒 Secure Setup (Recommended)</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># DMs: pairing required</span>
+<span class="comment"># Groups: mention required, allowlist for senders</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"pairing"</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."*".requireMention</span> <span class="arg">true</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groupPolicy</span> <span class="string">"allowlist"</span></code></pre>
+                </div>
+
+                <h3>🌐 Open Group Bot</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># Respond to all messages in a specific group</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."-1001234567890".requireMention</span> <span class="arg">false</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.groups."-1001234567890".groupPolicy</span> <span class="string">"open"</span></code></pre>
+                </div>
+
+                <h3>👤 Personal Assistant (Closed)</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-label">bash</span>
+                    </div>
+                    <pre><code><span class="comment"># Only you can DM, no groups</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.dmPolicy</span> <span class="string">"allowlist"</span>
+<span class="command">openclaw</span> <span class="arg">config set</span> <span class="string">channels.telegram.allowFrom</span> <span class="string">'["YOUR_USER_ID"]'</span>
+<span class="comment"># Don't configure groups at all</span></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Telegram Bot Setup Guide for OpenClaw • Generated for easy reference</p>
+        </footer>
+    </div>
+</body>
+</html>

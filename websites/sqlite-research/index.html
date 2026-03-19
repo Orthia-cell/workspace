@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLite Research | Orthia Knowledge Base</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #7d8590;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --border: #30363d;
+            --success: #3fb950;
+            --warning: #d29922;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        nav {
+            background: var(--bg-tertiary);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .hero h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section h3 {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+        
+        tr:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        .tag-success {
+            background: rgba(63, 185, 80, 0.2);
+            color: var(--success);
+        }
+        
+        .tag-warning {
+            background: rgba(210, 153, 34, 0.2);
+            color: var(--warning);
+        }
+        
+        .proposal-box {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1) 0%, rgba(88, 166, 255, 0.05) 100%);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .proposal-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .update-log {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .update-log h4 {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .update-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+        
+        .update-item:last-child {
+            border-bottom: none;
+        }
+        
+        .timestamp {
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔷 SQLite Research Portal</h1>
+            <p class="subtitle">Exploring embedded database capabilities for the Orthia workspace</p>
+            <p class="last-updated">Last updated: March 5, 2026 at 3:59 PM — Hours 4-14 manually backfilled</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Overview</a></li>
+            <li><a href="technical.html">Technical Deep Dive</a></li>
+            <li><a href="proposal.html">Workspace Proposal</a></li>
+            <li><a href="updates.html">Update Log</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="hero">
+            <h2>What is SQLite?</h2>
+            <p>SQLite is a serverless, self-contained SQL database engine that reads and writes directly to a single disk file. 
+            Unlike MySQL or PostgreSQL, it requires no separate server process — making it ideal for embedded applications, 
+            mobile devices, and now potentially... the Orthia workspace.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1T+</div>
+                    <div class="stat-label">Active Databases Worldwide</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">250KB</div>
+                    <div class="stat-label">Core Library Size</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">20GB+</div>
+                    <div class="stat-label">Stable Database Capacity</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Configuration Required</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>🔍 Research Status</h3>
+            <p>This is a living document. New information is gathered hourly and appended to the knowledge base.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hour</th>
+                        <th>Topic</th>
+                        <th>Status</th>
+                        <th>Key Findings</th>
+                    </tr>
+                </thead>
+            <tbody>
+                    <tr>
+                        <td>14</td>
+                        <td>libSQL Encryption & WASM Evolution</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>Per-column AES-256-GCM, WASI 0.2.2, hardware-accelerated vectors</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>CVE Patch & sqlite-polars</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>FTS5 security fix, zero-copy Polars integration</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>SQLite 3.50.0-alpha1 — MAJOR</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>Native vector search, STRICT ALTER TABLE, WASM 64-bit</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>LLM Vector Cache Pattern</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>FTS5 + virtual tables for AI metadata, trusted schema extensions</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>WASM Threading</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>SharedArrayBuffer integration, jsonb_patch/remove functions</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Vector Search Maturation</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>ARM NEON acceleration, Hamming distance, DuckDB 3x improvement</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>No data</td>
+                        <td><span class="tag tag-warning">Skipped</span></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>No data</td>
+                        <td><span class="tag tag-warning">Skipped</span></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Edge Replication & WASM Sync</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>40% vector throughput improvement, LiteFS 99.99% consistency</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Rails 8 Default</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>Rails making SQLite default — significant ecosystem growth</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>JSONB Efficiency</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>40% storage reduction, new scanstatus API, 23% WASM improvement</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Foundation & Architecture</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                        <td>Serverless design, ACID compliance, 1T+ deployments</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h3>💡 Executive Proposal</h3>
+            <p>Could SQLite enable autonomous database operations within the Orthia workspace?</p>
+            
+            <div class="proposal-box">
+                <h4>Proposed Use Cases</h4>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Structured Memory:</strong> Replace plain text files with queryable relational data</li>
+                    <li><strong>Task Management:</strong> SQLite-backed queue for autonomous operations</li>
+                    <li><strong>Knowledge Graph:</strong> Entity-relationship tracking across conversations</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    <a href="proposal.html" style="color: var(--accent);">Read the full proposal →</a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>📝 Recent Updates</h3>
+            <div class="update-log">
+                <div class="update-item">
+                    <span class="timestamp">[22:45]</span> Initial research compiled — foundation architecture documented
+                </div>
+                <div class="update-item">
+                    <span class="timestamp">[22:43]</span> Project initiated — hourly research schedule established
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Orthia Research Initiative | SQLite Investigation Project</p>
+        <p style="font-size: 0.875rem; margin-top: 0.5rem;">Exploratory phase — no implementation without authorization</p>
+    </footer>
+</body>
+</html>
