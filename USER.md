@@ -5,7 +5,7 @@ _Learn about the person you're helping. Update this as you go._
 - **Name:** Shawn
 - **What to call them:** Shawn
 - **Pronouns:** _(optional)_
-- **Timezone:** Asia/Shanghai (GMT+8)
+- **Timezone:** USA / California (GMT-7 or GMT-8 depending on DST)
 - **Notes:** Installed Kimi Claw on 2026-02-26. Named me Orthia. Security-conscious — requested message audit logging.
 
 ## Language Preference

@@ -116,9 +116,30 @@
 
 ---
 
-### Arduino IoT → GitHub Pipeline (March 14, 2026)
+### Battery Voltage Monitoring (March 23, 2026)
 
-**Status:** ✅ Built, ⏳ Awaiting Credentials  
+**Status:** ✅ Active hourly monitoring
+**Cron Job ID:** `0631d584-5802-4d5c-b0fc-92ea8b69d1ff`
+**Schedule:** Every hour at :05 (California time)
+**Data File:** `/root/.openclaw/workspace/battery_data/voltage_log.csv`
+
+**Purpose:** Automated hourly logging of Load Tester_2 battery voltage from Arduino IoT Cloud
+
+**Process:**
+1. Logs into Arduino IoT Cloud (credentials stored securely)
+2. Navigates to Load Tester_2 dashboard
+3. Extracts current voltage reading
+4. Appends timestamp + voltage to CSV
+5. Reports status back via notification
+
+**Next Run:** Top of next hour at :05
+
+---
+
+**Status:** ✅ Active — Hourly Monitoring Live
+**Credentials:** Stored in `.arduino_credentials` (workspace root)
+**Cron Job:** `battery-voltage-monitor` — Every hour at :05 (California time)
+**Data:** `/root/.openclaw/workspace/battery_data/voltage_log.csv`  
 **Location:** `/root/.openclaw/workspace/arduino-iot-pipeline/`  
 **Git Commits:** `a251b68`, `3e326fa`, `45b6bc2`  
 **Documentation:** `memory/arduino-iot-pipeline-project.md` (comprehensive)
@@ -172,6 +193,9 @@ python scripts/run_pipeline.py --schedule hourly  # Automate
 ---
 
 ## User Preferences
+
+### Timezone Correction (March 23, 2026)
+**Correction:** User clarified timezone is **USA / California**, not Asia/Shanghai as previously recorded.
 
 ### Core Operating Principles (March 10, 2026)
 **When in doubt — ASK.**
