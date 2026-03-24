@@ -4,6 +4,37 @@
 
 ---
 
+## ⚠️ CRITICAL OPERATIONAL WARNING
+
+### 🚫 NEVER USE THIS CONFIGURATION
+```json
+{
+  "gateway": {
+    "bind": "lan",
+    "tailscale": {
+      "mode": "serve"
+    }
+  }
+}
+```
+
+**Effect:** Complete gateway failure. Hangs on startup. Unresponsive to SIGTERM. Requires manual SIGKILL and recovery.
+
+**Date of Incident:** March 24, 2026  
+**Context:** Attempting to enable Telegram access for Grace_Laere_bot  
+**Recovery Time:** ~30 minutes  
+**Impact:** Orthia_bot token corrupted, workspace confusion, service downtime
+
+**Safe Workaround for Future Bot Setup:**
+- Use separate OpenClaw instance (different port, different config dir)
+- OR use webhook relay (ngrok)
+- OR use different channel (Discord)
+- NEVER enable `tailscale.mode: serve` when `bind: lan`
+
+---
+
+---
+
 ## Workspace Architecture
 
 **Primary Workspace:** `/root/.openclaw/workspace/` — Orthia (main, PI channel)
@@ -143,21 +174,32 @@
 
 ### Battery Voltage Monitoring (March 23, 2026)
 
-**Status:** ✅ Active hourly monitoring
-**Cron Job ID:** `0631d584-5802-4d5c-b0fc-92ea8b69d1ff`
-**Schedule:** Every hour at :05 (California time)
-**Data File:** `/root/.openclaw/workspace/battery_data/voltage_log.csv`
+**Status:** ✅ Active hourly monitoring  
+**Cron Job ID:** `0631d584-5802-4d5c-b0fc-92ea8b69d1ff`  
+**Schedule:** Every hour at :05 (California time)  
+**Data File:** `/root/.openclaw/workspace/battery_data/voltage_log.csv`  
+**Trend Analysis:** Daily at 7:30 AM PT (cron: `37c11ca8-b0ac-46bb-b29d-802b03ed5df6`)
 
-**Purpose:** Automated hourly logging of Load Tester_2 battery voltage from Arduino IoT Cloud
+**System:** 4S LiFePO4 6Ah + Solar Panel  
+**Current Health:** ✅ HEALTHY (maintaining 14.965V float charge)
 
 **Process:**
 1. Logs into Arduino IoT Cloud (credentials stored securely)
 2. Navigates to Load Tester_2 dashboard
 3. Extracts current voltage reading
 4. Appends timestamp + voltage to CSV
-5. Reports status back via notification
+5. Daily trend analysis at 7:30 AM PT
+6. Reports status back via notification
 
-**Next Run:** Top of next hour at :05
+**Latest Analysis (March 24, 2026):**
+- Voltage stable at 14.965V across both readings
+- Above nominal full charge (14.4-14.6V) - healthy float state
+- Solar panel maintaining charge effectively
+- 5 more days needed for meaningful 7-day trend analysis
+
+**Next Milestone:** 7-day dataset complete (March 30, 2026)
+
+**Trend Analysis Reports:** `memory/battery_trend_*.md`
 
 ---
 
