@@ -1,0 +1,23 @@
+# Battery Analysis Configuration
+# Arduino IoT Cloud API Credentials Required
+
+{
+  "client_id": "YOUR_CLIENT_ID_HERE",
+  "client_secret": "YOUR_CLIENT_SECRET_HERE",
+  "thing_id": "df883ac4-b65c-40b2-9a96-b3b01adffe1d",
+  "property_name": "voltage",
+  "voltage_thresholds": {
+    "critical_low": 11.8,
+    "low": 12.2,
+    "nominal_min": 12.6,
+    "nominal_max": 13.8,
+    "high": 14.8,
+    "critical_high": 15.5
+  }
+}
+
+# How to get credentials:
+# 1. Visit: https://cloud.arduino.cc/
+# 2. Go to: Profile → API Keys → Create New
+# 3. Copy Client ID and Client Secret to this file
+# 4. Save and test with: python3 scripts/battery_monitor.py

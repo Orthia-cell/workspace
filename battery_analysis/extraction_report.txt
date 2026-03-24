@@ -1,0 +1,53 @@
+ARDUINO IOT CLOUD DASHBOARD EXTRACTION REPORT
+======================================================================
+
+Timestamp: 2026-03-24 12:54:10
+URL: https://app.arduino.cc/dashboards/df883ac4-b65c-40b2-9a96-b3b01adffe1d
+Title: Arduino Cloud Dashboard
+
+Voltage Reading: N/A V
+
+Voltage Candidates:
+
+Button Texts Found:
+  - Dashboards
+  - Load Tester_2
+  - ADD
+
+--- Page Text Sample ---
+Dashboards
+Load Tester_2
+Shared by:
+ADD
+Voltage
+Load Tester_2
+Voltage
+15 D
+7 D
+1 D
+1 H
+LIVE
+13
+13.5
+14
+14.5
+15
+
+15:00
+
+18:00
+
+21:00
+
+24. Mar
+
+03:00
+
+06:00
+
+09:00
+
+12:00
+Edit & Organize widgets
+Customize your dashboard by adding widgets and linking Cloud Variables.
+Failed to save dashboard, please retry

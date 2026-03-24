@@ -1,0 +1,168 @@
+{
+  "name": "battery-voltage-monitor-v2",
+  "enabled": true,
+  "notify": true,
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 7,19 * * *",
+    "tz": "America/Los_Angeles"
+  },
+  "sessionTarget": "isolated",
+  "wakeMode": "now",
+  "timeoutSeconds": 900,
+  "payload": {
+    "kind": "agentTurn",
+    "model": "kimi-coding/k2p5",
+    "thinking": "high",
+    "message": "Battery Voltage Monitoring V2 - Enhanced Analysis Report
+
+YOUR TASK: Run the improved battery monitoring system and generate a comprehensive analysis report.
+
+## Setup Check
+1. Check if API credentials are configured in /root/.openclaw/workspace/battery_analysis/config.json
+2. If credentials are missing (contain 'YOUR_CLIENT_ID'), report this and skip to fallback analysis
+3. If credentials exist, proceed with full monitoring
+
+## With API Credentials (Full Mode)
+
+Run the battery monitor:
+```bash
+cd /root/.openclaw/workspace
+python3 battery_analysis/scripts/battery_monitor.py --hours 24
+```
+
+This will:
+- Connect to Arduino IoT Cloud API
+- Fetch 24h of voltage timeseries data
+- Calculate: current, min, max, average, trend
+- Generate health score (0-100)
+- Classify status (Critical/Low/Healthy/Charging/High)
+- Save to CSV history
+- Generate markdown report
+
+## Without API Credentials (Fallback Mode)
+
+If API credentials not available:
+1. Read existing data from /root/.openclaw/workspace/battery_data/voltage_log.csv
+2. Perform trend analysis on available data
+3. Generate recommendations based on last known voltage
+
+## REPORT FORMAT
+
+Generate a comprehensive report in this format:
+
+```
+╔════════════════════════════════════════════════════════════════╗
+║           🔋 BATTERY VOLTAGE ANALYSIS REPORT                   ║
+╠════════════════════════════════════════════════════════════════╣
+║  Report Time: {timestamp}                                      ║
+║  Analysis Period: Last 24 hours                                ║
+╠════════════════════════════════════════════════════════════════╣
+║  CURRENT READING                                               ║
+║  ───────────────────────────────────────────────────────────── ║
+║  Voltage:        {current} V                                   ║
+║  Status:         {status_emoji} {status_text}                  ║
+║  Health Score:   {health}/100 {health_bar}                     ║
+╠════════════════════════════════════════════════════════════════╣
+║  24-HOUR STATISTICS                                            ║
+║  ───────────────────────────────────────────────────────────── ║
+║  Minimum:        {min_v} V    (at {min_time})                  ║
+║  Maximum:        {max_v} V    (at {max_time})                  ║
+║  Average:        {avg_v} V                                     ║
+║  Swing:          {swing} V                                     ║
+║  Trend:          {trend_arrow} {trend_text}                    ║
+╠════════════════════════════════════════════════════════════════╣
+║  ANALYSIS & RECOMMENDATIONS                                    ║
+║  ───────────────────────────────────────────────────────────── ║
+║  {recommendation_1}                                            ║
+║  {recommendation_2}                                            ║
+║  {recommendation_3}                                            ║
+╠════════════════════════════════════════════════════════════════╣
+║  DATA QUALITY                                                  ║
+║  ───────────────────────────────────────────────────────────── ║
+║  Data Points:    {count}                                       ║
+║  Coverage:       {coverage}%                                   ║
+║  Last Updated:   {last_update}                                 ║
+╚════════════════════════════════════════════════════════════════╝
+```
+
+## HEALTH SCORE CALCULATION
+
+Calculate health score (0-100):
+- Start at 100
+- -30 if min_v < 11.5V (deep discharge)
+- -15 if min_v < 12.0V (significant discharge)
+- -25 if max_v > 15.0V (overcharge)
+- -10 if max_v > 14.8V (high charge)
+- -15 if voltage swing > 2.0V (unstable)
+- -5 if voltage swing > 1.5V
+
+## RECOMMENDATIONS LOGIC
+
+Generate contextual recommendations:
+
+1. If health_score < 50:
+   "⚠️ URGENT: Battery health is poor. Inspect battery and charging system immediately."
+
+2. If health_score < 75:
+   "📋 Monitor battery closely. Consider load testing and capacity check."
+
+3. If current < 12.0V:
+   "🔌 Battery needs charging. Voltage is below safe operating level."
+
+4. If trend == "falling" and current < 12.5V:
+   "📉 Voltage declining. Recharge recommended within 24 hours."
+
+5. If trend == "rising" and current > 14.0V:
+   "📈 Battery is charging normally. Current voltage indicates active charging."
+
+6. If max_v > 15.0V:
+   "🚨 Overcharge detected! Check voltage regulator to prevent battery damage."
+
+7. If swing > 2.0V:
+   "⚡ Large voltage fluctuations detected. Check connections and load stability."
+
+## TREND DETERMINATION
+
+- rising: Last 6hr average > Previous 6hr average by 0.1V
+- falling: Last 6hr average < Previous 6hr average by 0.1V
+- stable: Difference < 0.1V
+
+## VOLTAGE STATUS CLASSIFICATION
+
+| Voltage Range | Status | Emoji |
+|--------------|--------|-------|
+| ≤11.8V | 🔴 CRITICAL LOW | Deep discharge danger |
+| 11.8-12.2V | 🟠 LOW | Needs charging |
+| 12.2-12.6V | 🟡 RESTING | Not charging |
+| 12.6-13.8V | 🟢 HEALTHY | Normal range |
+| 13.8-14.8V | 🔵 CHARGING | Normal charge |
+| 14.8-15.5V | 🟠 HIGH | Overcharge warning |
+| >15.5V | 🔴 CRITICAL HIGH | Dangerous |
+
+## DATA LOGGING
+
+Always append results to:
+- /root/.openclaw/workspace/battery_analysis/data/battery_history.csv
+
+Format: timestamp,current,min,max,avg,trend,health
+
+## ERROR HANDLING
+
+If API fails:
+1. Log the error details
+2. Try to use cached/local data
+3. Report partial results with [PARTIAL DATA] flag
+4. Suggest checking API credentials
+
+## OUTPUT
+
+Return the formatted report table and any error messages.
+Include summary of actions taken and data files updated."
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "kimi-claw",
+    "to": "main"
+  }
+}

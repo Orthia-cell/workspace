@@ -1,6 +1,31 @@
 # MEMORY.md — Curated Long-Term Memory
 
-**Last Updated:** March 20, 2026 — Analog Memory Project: ALL 5 RESEARCH AREAS COMPLETE
+**Last Updated:** March 24, 2026 — Multi-Workspace Architecture: Grace_Laere_bot created
+
+---
+
+## Workspace Architecture
+
+**Primary Workspace:** `/root/.openclaw/workspace/` — Orthia (main, PI channel)
+**Secondary Workspace:** `/root/.openclaw/workspace-grace/` — Grace_Laere_bot (Telegram)
+
+### Memory Sharing Protocol
+- `memory/shared/` — Cross-workspace shared knowledge
+- `memory/shared/from-grace/` — Memories shared FROM Grace TO Orthia
+- Each workspace's `MEMORY.md` and `memory/*.md` — Private to that persona
+
+### Bot Roster
+| Bot | Workspace | Channel | Purpose |
+|-----|-----------|---------|---------|
+| Orthia | `workspace/` | PI/kimi-claw | Primary assistant |
+| Orthia_bot | `workspace/` | Telegram | Orthia's Telegram presence |
+| Grace_Laere_bot | `workspace-grace/` | Telegram | Independent persona |
+
+---
+
+## Active Projects
+
+### D-MDA: Differentiable Mechanical Differential Analyzer (March 17, 2026)
 
 ---
 
