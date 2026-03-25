@@ -54,6 +54,21 @@
 
 **CRITICAL RULE:** Messages tagged `@Grace` are saved EXCLUSIVELY in her workspace. Orthia acts as router, not recorder.
 
+### Research Pipeline Pause Condition (Established: March 25, 2026)
+**Grace's Daily Research Jobs (8AM, 11AM, 3PM) are PAUSED until Shawn provides a new research topic.**
+
+**How it works:**
+1. Each day, Shawn provides a new research topic (e.g., "org chart design for hybrid teams")
+2. Orthia documents the topic in `workspace-grace/research/TOPIC.txt`
+3. Grace's cron jobs check for this file
+4. If topic exists → proceed with 8AM/11AM/3PM research pipeline
+5. If no topic → hold off, do not generate papers
+6. After 3PM final paper, topic file is cleared/removed
+7. Grace waits for next day's topic from Shawn
+
+**This prevents:** Unwanted research papers, repo bloat, wasted compute on undefined topics
+**This ensures:** Each day's research is intentional, focused, and Shawn-directed
+
 ### Bot Roster
 | Bot | Workspace | Channel | Purpose |
 |-----|-----------|---------|---------|
