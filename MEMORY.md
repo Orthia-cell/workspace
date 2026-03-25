@@ -45,6 +45,15 @@
 - `memory/shared/from-grace/` — Memories shared FROM Grace TO Orthia
 - Each workspace's `MEMORY.md` and `memory/*.md` — Private to that persona
 
+### Multi-Agent Context Protocol (Established: March 25, 2026)
+**Tagging Convention for Context Switching:**
+| Direction | Tag | Response Prefix | Memory Destination |
+|-----------|-----|-----------------|-------------------|
+| User → Grace | `@Grace` | `Grace<` | `workspace-grace/memory/` |
+| User → Orthia | `@Orthia` or no tag | *(none)* | `workspace/memory/` |
+
+**CRITICAL RULE:** Messages tagged `@Grace` are saved EXCLUSIVELY in her workspace. Orthia acts as router, not recorder.
+
 ### Bot Roster
 | Bot | Workspace | Channel | Purpose |
 |-----|-----------|---------|---------|
