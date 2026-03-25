@@ -71,5 +71,45 @@ If workspace-grace/ is inaccessible:
 
 ---
 
-*Created: March 25, 2026*
-*Protocol Version: 1.0*
+## Log Entries
+
+### 2026-03-25 14:23:00 ORTHIA PROCESSED (MISSING TAG)
+
+**Incoming:** "Those are all really good questions and we will get to them in time..."
+**Tag Detected:** NONE (intended for Grace)
+**Routing Decision:** Default to Orthia (no tag detected)
+**Session Spawned:** No (Orthia main session)
+**Workspace Used:** /root/.openclaw/workspace/
+**Memory Saved To:** workspace/memory/2026-03-25.md (Orthia's log)
+**Prefix Used:** (none)
+**Errors:** R006 - Missing tag, message misrouted
+**Notes:** 
+- User intended message for Grace but omitted @Grace tag
+- Orthia responded with appropriate analysis
+- Correction made: Message reconstructed in Grace's memory file with proper attribution
+- Continuity preserved through manual correction
+- Cron jobs unaffected
+
+**Resolution:** 
+- Grace's memory file updated with corrected conversation flow
+- Both agents now have complete context
+- Tagging protocol reinforced
+
+---
+
+## Correction Protocol (New)
+
+When a message is misrouted due to missing tag:
+
+1. **Identify** the misrouted message and intended recipient
+2. **Reconstruct** the conversation flow in correct agent's memory
+3. **Document** the correction in routing-log.md with error code R006
+4. **Preserve** continuity for both agents
+5. **Reinforce** tagging protocol with user
+6. **Verify** cron jobs and core systems unaffected
+
+---
+
+*Created: March 25, 2026*  
+*Protocol Version: 1.1*  
+*Last Updated: March 25, 2026 (added correction protocol)*
