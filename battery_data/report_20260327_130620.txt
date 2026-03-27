@@ -1,0 +1,22 @@
+==================================================
+🔋 Arduino IoT Battery Monitor Report
+==================================================
+📅 Report Time: 2026-03-27 13:06:20 (Asia/Shanghai)
+🔌 Thing: Load Tester_2 (37cd8c67-7ebf-401f-a88e-321c9a285c4a)
+📊 Property: TBL3 (Voltage)
+
+--- Current Reading ---
+Current Voltage: 13.848 V
+Last Updated: 2022-09-09T04:45:37.1193Z
+
+--- ✅ Voltage Status: NORMAL ---
+
+--- 24-Hour Statistics ---
+Data Points: 1000
+Minimum: 13.356 V
+Maximum: 14.544 V
+Average: 14.038 V
+
+--- Assessment ---
+Status: Healthy (Normal operating range)
+==================================================

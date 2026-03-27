@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laere Enterprises - Daily Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e8e8e8;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #0f3460;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1em;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .orthia { background: #e94560; }
+        .grace { background: #533483; }
+        .system { background: #0f3460; }
+        .special { background: #16c79a; }
+        .timezone-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .tz-box {
+            background: rgba(15, 52, 96, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .tz-box h3 {
+            color: #e94560;
+            margin-bottom: 5px;
+        }
+        .schedule-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .time-slot {
+            display: grid;
+            grid-template-columns: 100px 100px 1fr 120px;
+            gap: 15px;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+        }
+        .time-slot:last-child {
+            border-bottom: none;
+        }
+        .time-slot.orthia-job { border-left: 4px solid #e94560; }
+        .time-slot.grace-job { border-left: 4px solid #533483; }
+        .time-slot.system-job { border-left: 4px solid #0f3460; }
+        .time-slot.special-job { border-left: 4px solid #16c79a; }
+        .time-pt { 
+            color: #a0a0a0; 
+            font-size: 0.9em;
+        }
+        .time-cn { 
+            font-weight: bold; 
+            color: #fff;
+        }
+        .job-name {
+            font-weight: 500;
+        }
+        .job-desc {
+            font-size: 0.85em;
+            color: #a0a0a0;
+        }
+        .agent {
+            text-align: right;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .agent.orthia { color: #e94560; }
+        .agent.grace { color: #9d84b7; }
+        .agent.system { color: #5a7a9c; }
+        .agent.special { color: #16c79a; }
+        .note {
+            background: rgba(233, 69, 96, 0.1);
+            border-left: 4px solid #e94560;
+            padding: 15px 20px;
+            margin-top: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        .note h4 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+        .buffer-zone {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.02),
+                rgba(255, 255, 255, 0.02) 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+        }
+        .section-title {
+            background: #0f3460;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            .time-slot {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            .timezone-header {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Laere Enterprises</h1>
+            <p class="subtitle">Daily Operations Schedule — March 2026</p>
+        </header>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color orthia"></div>
+                <span>Orthia (Systems/Research)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color grace"></div>
+                <span>Grace (Research)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color system"></div>
+                <span>System/Maintenance</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color special"></div>
+                <span>Special Projects</span>
+            </div>
+        </div>
+
+        <div class="timezone-header">
+            <div class="tz-box">
+                <h3>🌉 California (PT)</h3>
+                <p>Primary business timezone</p>
+            </div>
+            <div class="tz-box">
+                <h3>🌏 Shanghai (CST)</h3>
+                <p>Server location / Orthia operations</p>
+            </div>
+        </div>
+
+        <div class="schedule-container">
+            <div class="section-title">Early Morning (Shanghai Time)</div>
+            
+            <div class="time-slot grace-job">
+                <div class="time-cn">11:00 PM</div>
+                <div class="time-pt">8:00 AM PT</div>
+                <div>
+                    <div class="job-name">Grace Morning Research v1.0</div>
+                    <div class="job-desc">Foundation research paper or topic suggestions</div>
+                </div>
+                <div class="agent grace">GRACE</div>
+            </div>
+
+            <div class="time-slot grace-job">
+                <div class="time-cn">2:00 AM</div>
+                <div class="time-pt">11:00 AM PT</div>
+                <div>
+                    <div class="job-name">Grace Recursive Critique v2.0</div>
+                    <div class="job-desc">Deep critique & expansion (if topic set)</div>
+                </div>
+                <div class="agent grace">GRACE</div>
+            </div>
+
+            <div class="time-slot grace-job">
+                <div class="time-cn">6:00 AM</div>
+                <div class="time-pt">3:00 PM PT</div>
+                <div>
+                    <div class="job-name">Grace Finalization v3.0</div>
+                    <div class="job-desc">Synthesis & validation (if topic set)</div>
+                </div>
+                <div class="agent grace">GRACE</div>
+            </div>
+
+            <div class="section-title">Prime Orthia Window (Low Server Load)</div>
+
+            <div class="time-slot special-job">
+                <div class="time-cn">8:00 AM</div>
+                <div class="time-pt">5:00 PM PT</div>
+                <div>
+                    <div class="job-name">🎯 Special Project: Teams Research</div>
+                    <div class="job-desc">Parallel v1.0 research (3 angles) + micro-break questions</div>
+                </div>
+                <div class="agent special">ORTHIA</div>
+            </div>
+
+            <div class="time-slot orthia-job">
+                <div class="time-cn">9:00 AM</div>
+                <div class="time-pt">6:00 PM PT</div>
+                <div>
+                    <div class="job-name">Monthly MEMORY.md Review</div>
+                    <div class="job-desc">File size check (1st of month only)</div>
+                </div>
+                <div class="agent orthia">ORTHIA</div>
+            </div>
+
+            <div class="section-title">Asia Business Hours (High Load — Light Operations)</div>
+
+            <div class="time-slot buffer-zone">
+                <div class="time-cn">9:00 AM – 6:00 PM</div>
+                <div class="time-pt">6:00 PM – 3:00 AM PT</div>
+                <div>
+                    <div class="job-name">🟡 Buffer Zone</div>
+                    <div class="job-desc">Asia business hours — minimize heavy API usage</div>
+                </div>
+                <div class="agent system">SYSTEM</div>
+            </div>
+
+            <div class="section-title">Evening Window (Pre-Grace)</div>
+
+            <div class="time-slot orthia-job">
+                <div class="time-cn">7:00 PM</div>
+                <div class="time-pt">4:00 AM PT</div>
+                <div>
+                    <div class="job-name">Teams Research Synthesis v2.0</div>
+                    <div class="job-desc">Compare 3 parallel approaches, recommend path</div>
+                </div>
+                <div class="agent orthia">ORTHIA</div>
+            </div>
+
+            <div class="time-slot system-job">
+                <div class="time-cn">9:00 PM</div>
+                <div class="time-pt">6:00 AM PT</div>
+                <div>
+                    <div class="job-name">Daily Question</div>
+                    <div class="job-desc">Thought-provoking question for Shawn</div>
+                </div>
+                <div class="agent system">SYSTEM</div>
+            </div>
+
+            <div class="time-slot system-job">
+                <div class="time-cn">10:00 PM</div>
+                <div class="time-pt">7:00 AM PT</div>
+                <div>
+                    <div class="job-name">Auto-Commit</div>
+                    <div class="job-desc">Workspace changes → Git (every 4 hours)</div>
+                </div>
+                <div class="agent system">SYSTEM</div>
+            </div>
+        </div>
+
+        <div class="note">
+            <h4>📋 Key Notes</h4>
+            <ul>
+                <li><strong>Grace's Window:</strong> 11:00 PM – 6:00 AM Shanghai (8am–3pm PT) — RESERVED</li>
+                <li><strong>Orthia Prime:</strong> 8:00 AM Shanghai — 1-hour buffer after Grace, low server load</li>
+                <li><strong>Evening Slot:</strong> 7:00 PM Shanghai — 4-hour buffer before Grace</li>
+                <li><strong>Questions Log:</strong> <code>research_questions.md</code> — micro-break questions during research</li>
+                <li><strong>Special Project:</strong> "Microsoft Teams for 11-Agent Company" — 3 parallel angles + synthesis</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

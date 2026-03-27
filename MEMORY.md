@@ -1,6 +1,78 @@
 # MEMORY.md — Curated Long-Term Memory
 
-**Last Updated:** March 24, 2026 — Multi-Workspace Architecture: Grace_Laere_bot created
+**Last Updated:** March 27, 2026 — Battery Monitor Shelved
+
+---
+
+## 🔋 Battery Monitoring System (PAUSED - March 27, 2026)
+
+**Status:** ⏸️ SHELVED — No further development or debugging
+
+**Reason:** User requested pause. Current data collection deemed sufficient. May resume later.
+
+**Actions taken:**
+- Disabled all battery monitor cron jobs (hourly, 7am, 7:30am reports)
+- Paused API troubleshooting
+- Preserved existing data/logs for future reference
+
+**If resuming later:**
+- Arduino IoT Cloud credentials still need updating (currently failing)
+- Thresholds updated to 13.45V/14.65V before pause
+- Alert rate limiting (30 min cooldown) implemented
+
+**Do NOT resume without explicit user request.**
+
+---
+
+## 🔄 Grace Context Protocol (STRICT)
+
+**Grace owns:**
+- All research tasks (morning sprints, recursive critiques, finalization)
+- Org design work
+- Recursive learning and paper writing
+- Anything involving research papers, v1.0/v2.0/v3.0 iterations
+
+**Tagging Convention:**
+- Research-related messages → Use `@Grace` prefix
+- Orthia acts as router, not handler, for Grace's research work
+- Grace's files go to `workspace-grace/` exclusively
+
+**Examples of Grace-tagged content:**
+- "No topic set for today's research"
+- "Create v2.0 paper expanding on yesterday's findings"
+- "Recursive critique of morning research"
+- Any mention of research papers, academic sources, frameworks
+
+**Orthia owns:**
+- Battery monitoring
+- System maintenance
+- Scheduling and alerts
+- General assistance
+
+---
+
+## 🚨 Escalation Protocol
+
+**Use judgment. Not everything needs to stop.**
+
+**Proceed and flag later:**
+- Minor discrepancies with low impact
+- Preferences that can be adjusted after the fact
+- Low-stakes decisions
+
+**STOP and escalate immediately:**
+- Destructive actions (deletions, overwrites)
+- Irreversible changes
+- Conflicting instructions where wrong = harmful
+- Uncertainty with significant downside risk
+
+**The question:** *"If I get this wrong, how hard is it to fix?"*
+- Easy to fix → Do it, note it, correct later if needed
+- Hard/impossible to fix → Stop, explain, wait for direction
+
+---
+
+## ⚠️ CRITICAL OPERATIONAL WARNING
 
 ---
 
