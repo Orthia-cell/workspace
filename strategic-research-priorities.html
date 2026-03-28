@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laere Enterprises — Strategic Research Priorities</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #c6f6d5;
+            --accent-dark: #276749;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --bg: #f7fafc;
+            --card: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .logo {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        .meta {
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .intro {
+            background: var(--card);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .intro p {
+            color: var(--text);
+            font-size: 1.05rem;
+        }
+        
+        .research-item {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .research-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .research-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+        
+        h2 {
+            display: inline;
+            font-size: 1.5rem;
+            color: var(--primary);
+            vertical-align: middle;
+        }
+        
+        .section {
+            margin-top: 1.5rem;
+            padding-left: 0;
+        }
+        
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-dark);
+            border-radius: 50%;
+        }
+        
+        .section ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .section li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .relevance {
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-top: 1.5rem;
+        }
+        
+        .relevance .section-title {
+            color: var(--accent-dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .relevance .section-title::before {
+            background: var(--accent-dark);
+        }
+        
+        .relevance p {
+            color: var(--accent-dark);
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .research-item {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Laere Enterprises</div>
+            <h1>Strategic Research Priorities</h1>
+            <p class="subtitle">Human-AI Organizational Design Framework</p>
+            <p class="meta">Prepared by Grace Laere, Growth Architect | March 2026</p>
+        </header>
+        
+        <div class="intro">
+            <p>As Laere Enterprises scales toward an 11-person hybrid organization, three foundational research areas have been identified as critical to sustainable growth. Each addresses a distinct challenge in human-AI collaboration architecture.</p>
+        </div>
+        
+        <article class="research-item">
+            <span class="research-number">1</span>
+            <h2>The Handoff Protocol Matrix: A Framework for Human-AI Task Escalation</h2>
+            
+            <div class="section">
+                <div class="section-title">Purpose and Significance</div>
+                <p>Develop a systematic taxonomy of when, how, and why control should transfer between AI agents and human overseers. This goes beyond the "Minimal Human Overseer" concept to create actionable decision trees for real-time operational scenarios.</p>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Expected Value / Outcomes</div>
+                <ul>
+                    <li>A documented matrix of 20-30 common scenarios with clear escalation triggers</li>
+                    <li>Reduced decision latency during handoffs</li>
+                    <li>Standardized language for AI agents to request human intervention</li>
+                    <li>Lower cognitive burden on the human overseer through pre-defined protocols</li>
+                </ul>
+            </div>
+            
+            <div class="relevance">
+                <div class="section-title">Relevance to Laere Enterprises</div>
+                <p>As we scale to 11 employees, the frequency of edge cases requiring human judgment will increase exponentially. Without explicit handoff protocols, we risk either overwhelming our human overseer or creating bottlenecks where AI agents wait unnecessarily for approval.</p>
+            </div>
+        </article>
+        
+        <article class="research-item">
+            <span class="research-number">2</span>
+            <h2>Cognitive Load Distribution in AI-Native Organizations</h2>
+            
+            <div class="section">
+                <div class="section-title">Purpose and Significance</div>
+                <p>Investigate how creative, strategic, and emotional labor should be distributed between humans and AI systems to prevent burnout while maintaining organizational agility. This examines the <em>quality</em> of human work, not just the <em>quantity</em> of oversight.</p>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Expected Value / Outcomes</div>
+                <ul>
+                    <li>A model for "human cognitive budget allocation" across work types</li>
+                    <li>Identification of high-burnout-risk patterns in hybrid workflows</li>
+                    <li>Recommendations for role design that preserve human creativity and strategic capacity</li>
+                    <li>Guidelines for sustainable 1:11 human:AI ratios over time (not just technically, but psychologically)</li>
+                </ul>
+            </div>
+            
+            <div class="relevance">
+                <div class="section-title">Relevance to Laere Enterprises</div>
+                <p>The 1:11 ratio is only sustainable if we're thoughtful about what those 11 AI employees actually require from their human counterpart. This research prevents the "death by a thousand micro-decisions" scenario that could make our model collapse under operational weight.</p>
+            </div>
+        </article>
+        
+        <article class="research-item">
+            <span class="research-number">3</span>
+            <h2>Role Ontology: Mapping the Human-AI Competency Boundary</h2>
+            
+            <div class="section">
+                <div class="section-title">Purpose and Significance</div>
+                <p>Create a classification framework for organizational roles based on their suitability for AI leadership, human leadership, or hybrid shared ownership. This moves beyond "AI can do X" to "AI should own X."</p>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Expected Value / Outcomes</div>
+                <ul>
+                    <li>A replicable audit methodology for evaluating any organizational function</li>
+                    <li>Clear criteria for determining when to create new AI-led roles vs. human-led roles</li>
+                    <li>A growth roadmap for evolving role ownership as AI capabilities advance</li>
+                    <li>Risk assessment tools for over-reliance on AI in critical functions</li>
+                </ul>
+            </div>
+            
+            <div class="relevance">
+                <div class="section-title">Relevance to Laere Enterprises</div>
+                <p>We're defining what an 11-person hybrid organization looks like in practice. Every role we create sets precedent. This research ensures our organizational design is intentional, defensible, and scalable as both our team and AI capabilities grow.</p>
+            </div>
+        </article>
+        
+        <footer>
+            <p>Laere Enterprises &mdash; Building the future of human-AI collaboration</p>
+        </footer>
+    </div>
+</body>
+</html>
