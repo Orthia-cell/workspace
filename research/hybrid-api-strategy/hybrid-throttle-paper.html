@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Kimi API Strategy</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --success: #059669;
+            --bg: #fafafa;
+            --card: #ffffff;
+            --text: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --code-bg: #f3f4f6;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            color: white;
+            margin: -40px -24px 60px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        h1 { font-size: 2rem; margin: 48px 0 24px; color: var(--text); }
+        h2 { font-size: 1.75rem; margin: 40px 0 20px; border-bottom: 2px solid var(--border); padding-bottom: 12px; }
+        h3 { font-size: 1.375rem; margin: 32px 0 16px; color: var(--primary-dark); }
+        h4 { font-size: 1.125rem; margin: 24px 0 12px; }
+        
+        p { margin-bottom: 16px; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #1e3a5f;
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 16px;
+        }
+        
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+        tr:nth-child(even) { background: #f9fafb; }
+        
+        code {
+            font-family: 'Menlo', 'Monaco', monospace;
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.875em;
+            color: var(--danger);
+        }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-size: 0.875rem;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        ul, ol { margin: 16px 0 16px 24px; }
+        li { margin-bottom: 8px; }
+        
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 2px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box.info {
+            background: #dbeafe;
+            border-left-color: var(--primary);
+        }
+        
+        .architecture-diagram {
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            font-family: 'Menlo', monospace;
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hybrid Kimi API Strategy</h1>
+            <p class="subtitle">Adaptive Throttling for Mixed Workloads</p>
+            <p style="margin-top: 32px; font-size: 0.875rem; opacity: 0.8;">Laere Enterprises Technical Reference • March 28, 2026</p>
+        </header>
+
+        <h2>Executive Summary</h2>
+        
+        <p>This paper presents a <strong>hybrid architecture</strong> that combines the reliability of fixed-schedule cron jobs with the responsiveness of adaptive throttling. Rather than choosing between conservative batch processing and aggressive real-time optimization, this approach layers both strategies to handle:</p>
+        
+        <ol>
+            <li><strong>Predictable batch workloads</strong> — Cron jobs with guaranteed completion windows</li>
+            <li><strong>Variable real-time traffic</strong> — On-demand requests that must minimize latency</li>
+            <li><strong>Mixed environments</strong> — Systems that handle both patterns simultaneously</li>
+        </ol>
+
+        <div class="highlight-box info">
+            <strong>Core Insight:</strong> Use fixed scheduling for macro-level timing, adaptive throttling for micro-level request pacing.
+        </div>
+
+        <h2>1. The Problem with Pure Approaches</h2>
+
+        <h3>1.1 Pure Fixed Scheduling</h3>
+        <p><strong>Strengths:</strong> Predictable resource usage, guaranteed off-peak execution, simple to debug</p>
+        <p><strong>Weaknesses:</strong> Wastes capacity during low-traffic periods, cannot respond to real-time demand, rigid</p>
+
+        <h3>1.2 Pure Adaptive Throttling</h3>
+        <p><strong>Strengths:</strong> Maximizes throughput, self-healing under varying load, optimal for interactive systems</p>
+        <p><strong>Weaknesses:</strong> Unpredictable completion times, can miss batch deadlines, complex to tune</p>
+
+        <h3>1.3 The Hybrid Insight</h3>
+
+        <table>
+            <tr>
+                <th>Layer</th>
+                <th>Approach</th>
+                <th>Timescale</th>
+                <th>Decision Driver</th>
+            </tr>
+            <tr>
+                <td><strong>Macro</strong></td>
+                <td>Fixed scheduling</td>
+                <td>Hours</td>
+                <td>Business requirements (off-peak windows)</td>
+            </tr>
+            <tr>
+                <td><strong>Meso</strong></td>
+                <td>Job isolation</td>
+                <td>Minutes</td>
+                <td>Circuit breakers, failure containment</td>
+            </tr>
+            <tr>
+                <td><strong>Micro</strong></td>
+                <td>Adaptive throttling</td>
+                <td>Seconds</td>
+                <td>Real-time API feedback (429 rates)</td>
+            </tr>
+        </table>
+
+        <h2>2. Hybrid Architecture Design</h2>
+
+        <h3>2.1 Three-Layer Throttle Stack</h3>
+
+        <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 1: SCHEDULER (Fixed)                                 │
+│  • Cron jobs at fixed times                                 │
+│  • Hard start/stop boundaries                               │
+│  • 45-minute inter-job gaps                                 │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 2: SESSION MANAGER (Fixed + Circuit Breaker)         │
+│  • max_server_use_time: 25 min target                       │
+│  • timeout_seconds: 30 min hard limit                       │
+│  • Circuit breaker: Stop after 2 consecutive 429s           │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 3: REQUEST THROTTLER (Adaptive)                      │
+│  • Dynamic delay based on success/error rates               │
+│  • Self-tuning within session boundaries                    │
+│  • Exponential backoff with jitter                          │
+└─────────────────────────────────────────────────────────────┘
+        </div>
+
+        <h3>2.2 When Each Layer Activates</h3>
+
+        <table>
+            <tr>
+                <th>Layer</th>
+                <th>Trigger</th>
+                <th>Action</th>
+                <th>Adaptation</th>
+            </tr>
+            <tr>
+                <td><strong>1. Scheduler</strong></td>
+                <td>Clock time</td>
+                <td>Start job or skip</td>
+                <td>None — strictly time-based</td>
+            </tr>
+            <tr>
+                <td><strong>2. Session Manager</strong></td>
+                <td>Job starts</td>
+                <td>Monitor duration/errors</td>
+                <td>Circuit breaker on failures</td>
+            </tr>
+            <tr>
+                <td><strong>3. Request Throttler</strong></td>
+                <td>Every API request</td>
+                <td>Adjust delay</td>
+                <td>Continuous based on 429 frequency</td>
+            </tr>
+        </table>
+
+        <h2>3. Implementation: Hybrid Throttler</h2>
+
+        <p>See the complete Python implementation in the markdown version (<code>hybrid-throttle-paper.md</code>). Key classes:</p>
+
+        <ul>
+            <li><code>HybridThrottleConfig</code> — Configuration for all three layers</li>
+            <li><code>AdaptiveRequestThrottler</code> — Layer 3 self-tuning logic</li>
+            <li><code>CircuitBreaker</code> — Layer 2 failure containment</li>
+            <li><code>HybridThrottler</code> — Main orchestrator combining all layers</li>
+        </ul>
+
+        <h3>3.1 Usage Patterns</h3>
+
+        <h4>Pattern A: Pure Cron Job (Conservative)</h4>
+        <pre><code>config = HybridThrottleConfig(
+    schedule_type=WorkloadType.CRON_BATCH,
+    adaptive_min_delay=60.0,  # Conservative base
+    max_server_use_time=1500   # 25 min target
+)
+
+throttler = HybridThrottler(config)
+
+if throttler.start_session():
+    while throttler.should_continue():
+        try:
+            result = throttler.execute_request(
+                lambda: call_kimi_api(prompt),
+                "Research query"
+            )
+            process_result(result)
+        except Exception as e:
+            if "Circuit breaker" in str(e):
+                break
+    
+    stats = throttler.end_session()</code></pre>
+
+        <h4>Pattern B: Mixed (Hybrid) — Scheduled + Adaptive</h4>
+        <pre><code>config = HybridThrottleConfig(
+    schedule_type=WorkloadType.MIXED,
+    adaptive_min_delay=10.0,  # Middle ground
+    max_server_use_time=1500
+)
+
+@cron.schedule("0 0 * * *")  # Midnight
+def nightly_batch_job():
+    if not throttler.start_session():
+        return  # Circuit breaker open
+    
+    for task in get_batch_tasks():
+        if not throttler.should_continue():
+            break
+        
+        try:
+            result = throttler.execute_request(
+                lambda: process_task(task),
+                f"Task {task.id}"
+            )
+            save_result(result)
+        except Exception as e:
+            continue  # Try next task</code></pre>
+
+        <h2>4. Tuning Parameters</h2>
+
+        <table>
+            <tr>
+                <th>Profile</th>
+                <th>adaptive_min_delay</th>
+                <th>adaptive_aggression</th>
+                <th>circuit_breaker_threshold</th>
+                <th>max_server_use_time</th>
+            </tr>
+            <tr>
+                <td><strong>Conservative</strong></td>
+                <td>60.0s</td>
+                <td>0.95</td>
+                <td>2</td>
+                <td>1500s (25 min)</td>
+            </tr>
+            <tr>
+                <td><strong>Balanced</strong></td>
+                <td>10.0s</td>
+                <td>0.90</td>
+                <td>3</td>
+                <td>1800s (30 min)</td>
+            </tr>
+            <tr>
+                <td><strong>Aggressive</strong></td>
+                <td>1.0s</td>
+                <td>0.80</td>
+                <td>5</td>
+                <td>3600s (60 min)</td>
+            </tr>
+        </table>
+
+        <h2>5. Comparison: Hybrid vs. Pure Approaches</h2>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Pure Fixed</th>
+                <th>Pure Adaptive</th>
+                <th>Hybrid</th>
+            </tr>
+            <tr>
+                <td>Predictable completion</td>
+                <td>✓✓✓</td>
+                <td>✗</td>
+                <td>✓✓</td>
+            </tr>
+            <tr>
+                <td>Maximum throughput</td>
+                <td>✗</td>
+                <td>✓✓✓</td>
+                <td>✓✓</td>
+            </tr>
+            <tr>
+                <td>Handles traffic spikes</td>
+                <td>✗</td>
+                <td>✓✓</td>
+                <td>✓✓</td>
+            </tr>
+            <tr>
+                <td>Guaranteed off-peak execution</td>
+                <td>✓✓✓</td>
+                <td>✗</td>
+                <td>✓✓✓</td>
+            </tr>
+            <tr>
+                <td>Handles mixed workloads</td>
+                <td>✗</td>
+                <td>✓</td>
+                <td>✓✓✓</td>
+            </tr>
+        </table>
+
+        <h2>6. Conclusion</h2>
+
+        <p>The hybrid approach provides <strong>the best of both worlds</strong>: the reliability and predictability of fixed scheduling, combined with the efficiency and self-healing of adaptive throttling.</p>
+
+        <p><strong>Key Takeaways:</strong></p>
+        <ol>
+            <li><strong>Use fixed scheduling for macro timing</strong> — Business requirements don't adapt</li>
+            <li><strong>Use adaptive throttling for micro pacing</strong> — API capacity varies</li>
+            <li><strong>Circuit breakers bridge both layers</strong> — Fail fast when API is unhealthy</li>
+            <li><strong>Choose your profile</strong> — Conservative, Balanced, or Aggressive based on needs</li>
+        </ol>
+
+        <div class="highlight-box info">
+            <strong>When to choose hybrid:</strong> You have both batch and real-time workloads, you need guaranteed completion but want efficiency, you're migrating from one pattern to another, or you want future flexibility without rewrites.
+        </div>
+
+        <div class="footer">
+            <p><strong>Document Version:</strong> 1.0 | <strong>Last Updated:</strong> March 28, 2026</p>
+            <p>Laere Enterprises Systems Architecture</p>
+            <p>For questions: systems@laere.enterprises</p>
+        </div>
+    </div>
+</body>
+</html>
