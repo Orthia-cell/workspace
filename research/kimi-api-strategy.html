@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimi API Maximum Utilization Strategy</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --success: #059669;
+            --bg: #fafafa;
+            --card: #ffffff;
+            --text: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --code-bg: #f3f4f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            color: white;
+            margin: -40px -24px 60px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        header .meta {
+            margin-top: 32px;
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin: 48px 0 24px;
+            color: var(--text);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+        
+        h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin: 36px 0 16px;
+            color: var(--primary-dark);
+        }
+        
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 28px 0 12px;
+            color: var(--text);
+        }
+        
+        p {
+            margin-bottom: 16px;
+        }
+        
+        .executive-summary {
+            background: var(--card);
+            border-left: 4px solid var(--primary);
+            padding: 32px;
+            margin: 32px 0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .executive-summary h2 {
+            margin-top: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .executive-summary ol {
+            margin: 20px 0 0 24px;
+        }
+        
+        .executive-summary li {
+            margin-bottom: 12px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #1e3a5f;
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 16px;
+        }
+        
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        code {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.875em;
+            color: var(--danger);
+        }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: inherit;
+        }
+        
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box.danger {
+            background: #fee2e2;
+            border-left-color: var(--danger);
+        }
+        
+        .highlight-box.success {
+            background: #d1fae5;
+            border-left-color: var(--success);
+        }
+        
+        .highlight-box.info {
+            background: #dbeafe;
+            border-left-color: var(--primary);
+        }
+        
+        .highlight-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 24px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .checklist li {
+            padding-left: 32px;
+            position: relative;
+        }
+        
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.25rem;
+            line-height: 1.4;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 2px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 640px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+            
+            header .subtitle {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 20px 16px;
+            }
+            
+            header {
+                margin: -20px -16px 40px;
+                padding: 40px 16px;
+            }
+            
+            table {
+                font-size: 0.875rem;
+            }
+            
+            th, td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kimi API Maximum Utilization Strategy</h1>
+            <p class="subtitle">Optimizing Server Usage Without Exceeding Rate Limits</p>
+            <p class="meta">Laere Enterprises Technical Reference • March 28, 2026</p>
+        </header>
+
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>This paper defines an optimal strategy for maximizing Kimi API utilization while respecting rate limits and server load constraints. Based on analysis of Moonshot AI's API policies, empirical data from production usage, and industry best practices, we establish a framework for:</p>
+            <ol>
+                <li><strong>Session Architecture</strong> — Separating <code>max_server_use_time</code> from <code>timeout_seconds</code></li>
+                <li><strong>Optimal Scheduling</strong> — Operating during China off-peak hours (12 AM - 6 AM CST)</li>
+                <li><strong>Intelligent Retry Logic</strong> — Exponential backoff with jitter and circuit breakers</li>
+                <li><strong>Rate Limit Compliance</strong> — Understanding actual limits and avoiding punitive restrictions</li>
+            </ol>
+        </div>
+
+        <h2>1. Kimi/Moonshot API Policy Analysis</h2>
+        
+        <h3>1.1 Rate Limit Structure</h3>
+        <p>Moonshot AI enforces rate limits across <strong>four dimensions simultaneously</strong> — whichever threshold is reached first triggers throttling:</p>
+        
+        <table>
+            <tr>
+                <th>Limit Type</th>
+                <th>Description</th>
+                <th>Free Tier</th>
+                <th>Paid Tier Scaling</th>
+            </tr>
+            <tr>
+                <td><strong>Concurrency</strong></td>
+                <td>Max simultaneous requests</td>
+                <td>1</td>
+                <td>Increases with recharge</td>
+            </tr>
+            <tr>
+                <td><strong>RPM</strong></td>
+                <td>Requests per minute</td>
+                <td>3</td>
+                <td>20-500+ based on tier</td>
+            </tr>
+            <tr>
+                <td><strong>TPM</strong></td>
+                <td>Tokens per minute</td>
+                <td>32,000</td>
+                <td>200K+ based on tier</td>
+            </tr>
+            <tr>
+                <td><strong>TPD</strong></td>
+                <td>Tokens per day</td>
+                <td>1,500,000</td>
+                <td>Unlimited on paid tiers</td>
+            </tr>
+        </table>
+
+        <div class="highlight-box info">
+            <strong>Critical Finding:</strong> Rate limits are enforced at the <strong>user level</strong>, not API key level. Multiple keys under one account share the same quota.
+        </div>
+
+        <h3>1.2 Token Bucket Algorithm</h3>
+        <p>Moonshot uses a <strong>token bucket</strong> rather than fixed-window limiting. This means:</p>
+        <ul>
+            <li>Capacity replenishes continuously, not at fixed intervals</li>
+            <li>Short bursts can trigger limits even if average usage is below threshold</li>
+            <li>A 60-second wait is typically sufficient for bucket refill after hitting a limit</li>
+        </ul>
+
+        <h3>1.3 Rate Limit Response Headers</h3>
+        <p>When approaching limits, the API returns:</p>
+        <pre><code>X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 59
+X-RateLimit-Reset: 1709125800</code></pre>
+
+        <div class="highlight-box">
+            <strong>Important:</strong> When rate limited (429), Moonshot returns <code>Retry-After</code> header. Respect this value rather than using calculated backoff.
+        </div>
+
+        <h3>1.4 The Rate Limit / Billing Trap</h3>
+        <div class="highlight-box danger">
+            <strong>Critical Bug Identified:</strong> When API account balance reaches zero, Moonshot returns <strong>429 Rate Limit Reached</strong> instead of a clear billing error. This can trigger infinite retry loops that waste computational resources, extend lockout periods, and potentially flag accounts for abuse.
+        </div>
+
+        <h2>2. Session Architecture: Work Time vs. Timeout</h2>
+        
+        <h3>2.1 The Distinction</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Purpose</th>
+                <th>Recommended Value</th>
+            </tr>
+            <tr>
+                <td><code>max_server_use_time</code></td>
+                <td>Target duration for productive work</td>
+                <td>20-25 minutes</td>
+            </tr>
+            <tr>
+                <td><code>timeout_seconds</code></td>
+                <td>Hard kill switch to prevent runaway processes</td>
+                <td>30 minutes (1800s)</td>
+            </tr>
+            <tr>
+                <td><code>rate_limit_cooldown</code></td>
+                <td>Mandatory pause after 429 errors</td>
+                <td>60-300 seconds</td>
+            </tr>
+        </table>
+
+        <h3>2.2 Why Separate These Values?</h3>
+        <div class="highlight-box danger">
+            <strong>Without separation:</strong><br>
+            timeout = 30 minutes → Work completes in 5 minutes → Rate limit hit at minute 6 → Infinite retry for 24 minutes until timeout → <strong>Result: Account flagged, wasted tokens</strong>
+        </div>
+        <div class="highlight-box success">
+            <strong>With separation:</strong><br>
+            max_server_use_time = 25 minutes → timeout = 30 minutes → Rate limit hit at minute 6 → Circuit breaker triggers, session ends gracefully → <strong>Result: Clean failure, no account flagging</strong>
+        </div>
+
+        <h3>2.3 Implementation Pattern</h3>
+        <pre><code>class KimiSessionConfig:
+    """Production-ready session configuration for Kimi API."""
+    
+    # Target work duration — session should complete within this window
+    MAX_SERVER_USE_TIME_SECONDS: int = 1500  # 25 minutes
+    
+    # Hard timeout — absolute ceiling regardless of state
+    TIMEOUT_SECONDS: int = 1800  # 30 minutes
+    
+    # Rate limit handling
+    RATE_LIMIT_COOLDOWN_SECONDS: int = 60
+    MAX_RETRY_ATTEMPTS: int = 3
+    CIRCUIT_BREAKER_THRESHOLD: int = 2  # consecutive 429s before pause
+    
+    # Scheduling optimization
+    OFF_PEAK_START_HOUR: int = 0   # 12 AM China
+    OFF_PEAK_END_HOUR: int = 6     # 6 AM China
+    INTER_SESSION_GAP_MINUTES: int = 45</code></pre>
+
+        <h2>3. Retry Strategy Architecture</h2>
+        
+        <h3>3.1 The Problem with Naive Retries</h3>
+        <div class="highlight-box danger">
+            <strong>Naive approach (DANGEROUS):</strong>
+            <pre style="background:transparent;padding:0;margin:8px 0 0;"><code style="color:#fee2e2;">while True:
+    try:
+        response = call_api()
+        break
+    except RateLimitError:
+        time.sleep(1)  # Too aggressive
+        continue</code></pre>
+        </div>
+        <p><strong>Problems:</strong></p>
+        <ol>
+            <li>No backoff — immediate retry wastes quota</li>
+            <li>No jitter — synchronized retries create thundering herd</li>
+            <li>No circuit breaker — infinite loops trigger account restrictions</li>
+            <li>No header inspection — ignores server's Retry-After guidance</li>
+        </ol>
+
+        <h3>3.2 Production-Ready Retry Implementation</h3>
+        <pre><code>import random
+import time
+from dataclasses import dataclass
+from enum import Enum
+from typing import Optional, Callable
+import logging
+
+logger = logging.getLogger(__name__)
+
+class BackoffStrategy(Enum):
+    FIXED = "fixed"
+    LINEAR = "linear"
+    EXPONENTIAL = "exponential"
+    EXPONENTIAL_JITTER = "exponential_jitter"
+
+@dataclass
+class RetryConfig:
+    """Configuration for rate-limit-aware retry logic."""
+    max_attempts: int = 5
+    base_delay_seconds: float = 60.0  # Start with 1 minute
+    max_delay_seconds: float = 300.0  # Cap at 5 minutes
+    strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL_JITTER
+    circuit_breaker_threshold: int = 3
+    respect_retry_after: bool = True
+    abort_on_auth_error: bool = True  # Stop on 401/403
+
+class CircuitBreaker:
+    """Prevents cascading failures by stopping after consecutive errors."""
+    
+    def __init__(self, threshold: int = 3, reset_after_seconds: float = 600):
+        self.threshold = threshold
+        self.reset_after = reset_after_seconds
+        self._failure_count = 0
+        self._last_failure_time: Optional[float] = None
+    
+    def record_failure(self) -> bool:
+        """Returns True if circuit is now OPEN (should stop)."""
+        now = time.time()
+        
+        if self._last_failure_time and (now - self._last_failure_time) > self.reset_after:
+            self._failure_count = 0
+        
+        self._failure_count += 1
+        self._last_failure_time = now
+        
+        is_open = self._failure_count >= self.threshold
+        if is_open:
+            logger.warning(f"Circuit breaker OPEN after {self._failure_count} failures")
+        return is_open
+    
+    def record_success(self):
+        if self._failure_count > 0:
+            logger.info(f"Circuit breaker reset (was at {self._failure_count})")
+        self._failure_count = 0
+
+class RateLimitAwareClient:
+    """Production client with intelligent rate limit handling."""
+    
+    def __init__(self, config: RetryConfig = None):
+        self.config = config or RetryConfig()
+        self.circuit_breaker = CircuitBreaker(
+            threshold=self.config.circuit_breaker_threshold
+        )
+        self._consecutive_429s = 0
+    
+    def calculate_backoff(self, attempt: int, retry_after: Optional[int] = None) -> float:
+        """Calculate delay before next retry."""
+        
+        # Always respect server's Retry-After if provided
+        if self.config.respect_retry_after and retry_after:
+            return float(retry_after)
+        
+        base = self.config.base_delay_seconds
+        
+        if self.config.strategy == BackoffStrategy.EXPONENTIAL_JITTER:
+            # Exponential with full jitter to prevent thundering herd
+            exp_delay = base * (2 ** (attempt - 1))
+            delay = random.uniform(0, exp_delay)
+        else:
+            delay = base
+        
+        return min(delay, self.config.max_delay_seconds)
+    
+    def execute_with_retry(self, operation: Callable, operation_name: str = "API call"):
+        for attempt in range(1, self.config.max_attempts + 1):
+            # Check circuit breaker
+            if self.circuit_breaker._failure_count >= self.config.circuit_breaker_threshold:
+                raise Exception(f"Circuit breaker open — too many consecutive failures")
+            
+            try:
+                result = operation()
+                self.circuit_breaker.record_success()
+                self._consecutive_429s = 0
+                return result
+                
+            except Exception as e:
+                error_str = str(e).lower()
+                is_rate_limit = "rate limit" in error_str or "429" in error_str
+                is_auth_error = "unauthorized" in error_str or "billing" in error_str or "credit" in error_str
+                
+                # Handle auth errors — don't retry
+                if is_auth_error and self.config.abort_on_auth_error:
+                    logger.error(f"Authentication/billing error — aborting: {e}")
+                    raise
+                
+                # Handle rate limits
+                if is_rate_limit:
+                    self._consecutive_429s += 1
+                    retry_after = None  # Parse from response headers
+                    
+                    if attempt < self.config.max_attempts:
+                        delay = self.calculate_backoff(attempt, retry_after)
+                        logger.warning(
+                            f"Rate limited ({self._consecutive_429s}x). "
+                            f"Attempt {attempt}/{self.config.max_attempts}. "
+                            f"Waiting {delay:.1f}s..."
+                        )
+                        time.sleep(delay)
+                        continue
+                
+                # Record failure for circuit breaker
+                should_stop = self.circuit_breaker.record_failure()
+                if should_stop:
+                    raise Exception(f"Circuit breaker tripped after {attempt} attempts")
+                
+                if attempt >= self.config.max_attempts:
+                    raise
+        
+        raise Exception("Unexpected exit from retry loop")</code></pre>
+
+        <h2>4. Scheduling Optimization</h2>
+        
+        <h3>4.1 China Off-Peak Analysis</h3>
+        <table>
+            <tr>
+                <th>Time (China)</th>
+                <th>Traffic Level</th>
+                <th>Recommendation</th>
+            </tr>
+            <tr>
+                <td>12 AM - 2 AM</td>
+                <td>Very Low</td>
+                <td>Primary research window</td>
+            </tr>
+            <tr>
+                <td>2 AM - 4 AM</td>
+                <td>Low</td>
+                <td>Secondary tasks</td>
+            </tr>
+            <tr>
+                <td>4 AM - 6 AM</td>
+                <td>Moderate</td>
+                <td>Finalization, cleanup</td>
+            </tr>
+            <tr>
+                <td>6 AM - 9 AM</td>
+                <td>Increasing</td>
+                <td>Avoid new sessions</td>
+            </tr>
+            <tr>
+                <td>9 AM - 12 PM</td>
+                <td>Peak</td>
+                <td>Read-only operations only</td>
+            </tr>
+            <tr>
+                <td>12 PM - 11 PM</td>
+                <td>High</td>
+                <td>Avoid all automated tasks</td>
+            </tr>
+        </table>
+
+        <h3>4.2 Laere Operations Schedule (Optimized)</h3>
+        <pre><code># All times in China Standard Time (CST/UTC+8)
+
+Daily Schedule:
+┌─────────────────────────┬───────────┬─────────────┬──────────┐
+│ Job                     │ China     │ PT          │ Gap      │
+├─────────────────────────┼───────────┼─────────────┼──────────┤
+│ orthia-auto-commit      │ 12:00 AM  │ 9:00 AM     │ —        │
+│ grace-morning-research  │ 12:00 AM  │ 9:00 AM     │ —        │
+│ grace-recursive-critique│ 12:45 AM  │ 9:45 AM     │ +45 min  │
+│ orthia-daily-question   │ 1:30 AM   │ 10:30 AM    │ +45 min  │
+│ grace-finalization      │ 2:15 AM   │ 11:15 AM    │ +45 min  │
+└─────────────────────────┴───────────┴─────────────┴──────────┘
+
+All jobs complete by 2:45 AM — 3h 15m buffer before peak traffic</code></pre>
+
+        <h3>4.3 Why 45-Minute Gaps?</h3>
+        <ol>
+            <li><strong>Token bucket refill:</strong> Ensures full quota restoration between sessions</li>
+            <li><strong>Server cooldown:</strong> Prevents thermal/load accumulation</li>
+            <li><strong>Error isolation:</strong> Failure in one job doesn't cascade to next</li>
+            <li><strong>Human review window:</strong> If rate limits occur, intervention possible</li>
+        </ol>
+
+        <h2>5. Maximum Continuous API Use Guidelines</h2>
+        
+        <table>
+            <tr>
+                <th>Use Case</th>
+                <th>Max Continuous Use</th>
+                <th>Mandatory Pause</th>
+            </tr>
+            <tr>
+                <td>Research (high thinking)</td>
+                <td>25 minutes</td>
+                <td>15 minutes</td>
+            </tr>
+            <tr>
+                <td>Code generation</td>
+                <td>20 minutes</td>
+                <td>10 minutes</td>
+            </tr>
+            <tr>
+                <td>Chat/dialog</td>
+                <td>60 minutes</td>
+                <td>5 minutes</td>
+            </tr>
+            <tr>
+                <td>Background tasks</td>
+                <td>30 minutes</td>
+                <td>20 minutes</td>
+            </tr>
+        </table>
+
+        <h2>6. Monitoring and Alerting</h2>
+        
+        <h3>6.2 Alert Thresholds</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Warning</th>
+                <th>Critical</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>Rate limits/hour</td>
+                <td>2</td>
+                <td>5</td>
+                <td>Pause new sessions for 2 hours</td>
+            </tr>
+            <tr>
+                <td>Token usage/day</td>
+                <td>1M</td>
+                <td>1.4M</td>
+                <td>Switch to lower-cost model</td>
+            </tr>
+            <tr>
+                <td>Session failures</td>
+                <td>1</td>
+                <td>3</td>
+                <td>Circuit breaker open</td>
+            </tr>
+            <tr>
+                <td>Avg response time</td>
+                <td>10s</td>
+                <td>30s</td>
+                <td>Reduce complexity, add caching</td>
+            </tr>
+        </table>
+
+        <h2>7. Summary of Recommendations</h2>
+        
+        <table>
+            <tr>
+                <th>Area</th>
+                <th>Current Practice</th>
+                <th>Recommended Practice</th>
+            </tr>
+            <tr>
+                <td>Scheduling</td>
+                <td>8 AM, 11 AM, 3 PM PT</td>
+                <td>12 AM - 2:15 AM China</td>
+            </tr>
+            <tr>
+                <td>Session timeout</td>
+                <td>600s (10 min)</td>
+                <td>1800s (30 min) hard limit</td>
+            </tr>
+            <tr>
+                <td>Work target</td>
+                <td>Same as timeout</td>
+                <td>1500s (25 min) soft target</td>
+            </tr>
+            <tr>
+                <td>Inter-job gap</td>
+                <td>3 hours</td>
+                <td>45 minutes</td>
+            </tr>
+            <tr>
+                <td>Retry on 429</td>
+                <td>Immediate</td>
+                <td>60s exponential backoff</td>
+            </tr>
+            <tr>
+                <td>Max retries</td>
+                <td>Infinite/unlimited</td>
+                <td>3 attempts, then circuit break</td>
+            </tr>
+            <tr>
+                <td>Concurrency</td>
+                <td>2+ simultaneous</td>
+                <td>1 at a time</td>
+            </tr>
+        </table>
+
+        <h2>Appendix A: Rate Limit Error Codes</h2>
+        
+        <table>
+            <tr>
+                <th>HTTP Code</th>
+                <th>Meaning</th>
+                <th>Retry?</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td>429</td>
+                <td>Too Many Requests</td>
+                <td>Yes (with backoff)</td>
+                <td>Check Retry-After header</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Unauthorized</td>
+                <td><strong>No</strong></td>
+                <td>Billing/auth issue</td>
+            </tr>
+            <tr>
+                <td>403</td>
+                <td>Forbidden</td>
+                <td><strong>No</strong></td>
+                <td>Account suspended</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error</td>
+                <td>Yes</td>
+                <td>Transient, retry with backoff</td>
+            </tr>
+            <tr>
+                <td>502/503/504</td>
+                <td>Gateway Error</td>
+                <td>Yes</td>
+                <td>Transient infrastructure issue</td>
+            </tr>
+            <tr>
+                <td>529</td>
+                <td>Overloaded</td>
+                <td>Yes (long backoff)</td>
+                <td>Server capacity exceeded</td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <div class="footer">
+            <p><strong>Document Version:</strong> 1.0 | <strong>Last Updated:</strong> March 28, 2026</p>
+            <p>Laere Enterprises Systems Architecture</p>
+            <p>For questions or updates, contact: systems@laere.enterprises</p>
+        </div>
+    </div>
+</body>
+</html>
